@@ -1,6 +1,7 @@
-﻿namespace Backend.Presentation_Layer.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace Backend.Presentation_Layer;
+
+public class AdminController : ControllerBase
 {
-    public class AdminCurrencyController
-    {
-    }
 }

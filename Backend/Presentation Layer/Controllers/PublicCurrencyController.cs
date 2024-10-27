@@ -1,6 +1,5 @@
-﻿namespace Backend.Presentation_Layer.Controllers
+﻿namespace Backend.Presentation_Layer;
+
+public class PublicCurrencyController
 {
-    public class PublicCurrencyController
-    {
-    }
 }

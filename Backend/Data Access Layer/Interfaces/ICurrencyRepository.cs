@@ -1,6 +1,6 @@
-﻿using Backend.Data_Access_Layer.Entity;
+﻿using Backend.Data_Access_Layer;
 
-namespace Backend.Data_Access_Layer.Interfaces
+namespace Backend.Data_Access_Layer
 {
     public interface ICurrencyRepository
     {

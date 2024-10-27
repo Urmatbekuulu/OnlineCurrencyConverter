@@ -1,8 +1,6 @@
-﻿using Backend.Data_Access_Layer.EFContext;
-using Backend.Data_Access_Layer.Entity;
-using Backend.Data_Access_Layer.Interfaces;
+﻿using Backend.Data_Access_Layer;
 
-namespace Backend.Data_Access_Layer.Repositories
+namespace Backend.Data_Access_Layer
 {
     public class CurrencyRepository : ICurrencyRepository
     {

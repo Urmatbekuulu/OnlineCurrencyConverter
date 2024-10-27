@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Data_Access_Layer.Entity
+namespace Backend.Data_Access_Layer
 {
     [PrimaryKey(nameof(CurrencyCode), nameof(ActualDate))]
     public class Currency 
