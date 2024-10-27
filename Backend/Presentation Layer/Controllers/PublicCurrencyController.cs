@@ -1,5 +1,7 @@
-﻿namespace Backend.Presentation_Layer;
+﻿using Microsoft.AspNetCore.Mvc;
 
-public class PublicCurrencyController
+namespace Backend.Presentation_Layer;
+
+public class PublicCurrencyController : ControllerBase
 {
 }

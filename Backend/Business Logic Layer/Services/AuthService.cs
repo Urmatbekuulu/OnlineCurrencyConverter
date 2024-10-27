@@ -4,7 +4,7 @@ namespace Backend.Business_Logic_Layer
 {
     public class AuthService : IAuthService
     {
-        public Task<SignInResponse> RefreshTokenAsync(SignInRequest request)
+        public Task<SignInResponse> RefreshTokenAsync(RefreshTokenViewModel request)
         {
             throw new NotImplementedException();
         }
