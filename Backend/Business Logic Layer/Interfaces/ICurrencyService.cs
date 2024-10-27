@@ -1,6 +1,6 @@
-﻿using Backend.Data_Access_Layer.Entity;
+﻿using Backend.Data_Access_Layer;
 
-namespace Backend.Business_Logic_Layer.Interfaces
+namespace Backend.Business_Logic_Layer
 {
     public interface ICurrencyService
     {
