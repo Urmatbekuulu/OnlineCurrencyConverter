@@ -9,7 +9,7 @@ namespace SharedModels.AuthViewModels
     public class SignInResponse
     {
         public bool IsSuccess { get; set; }
-        public IEnumerable<string> Errors { get; set; }
+        public IList<string> Errors { get; set; }
         public string Username { get; set; }
         public string JwtToken { get; set; }
         public string RefreshToken { get; set; }
