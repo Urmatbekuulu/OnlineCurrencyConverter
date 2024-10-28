@@ -1,0 +1,25 @@
+﻿@using Frontend.Layout
+@using Microsoft.AspNetCore.Components.Authorization
+
+@inject NavigationManager NavigationManager
+
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+             <CustomAuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" NotAuthorizedLayout="@typeof(ErrorLayout)">
+                <NotAuthorized>
+                    @{
+                        NavigationManager.NavigateTo($"login");
+                    }
+                </NotAuthorized>
+            </CustomAuthorizeRouteView>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(ErrorLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
