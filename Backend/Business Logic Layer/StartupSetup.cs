@@ -7,7 +7,7 @@ namespace Backend.Business_Logic_Layer
     {
         public static void AddBusinessAccessLayerServices(this IServiceCollection services, IConfiguration configuration)
         {
-          
+            services.AddJwtIdentity(configuration.GetSection(nameof(JwtConfiguration)));
         }
     }
 }
