@@ -33,8 +33,10 @@ namespace Backend.Business_Logic_Layer
            .Include(x => x.User)
            .FirstOrDefaultAsync(x => x.Token == request.RefreshToken);
 
-            if (refreshToken == null || !refreshToken.IsActive || refreshToken.User == null)
+            if (refreshToken == null || !refreshToken.IsActive || refreshToken.User == null) {
                 response.Errors.Add("Error token already revoked or unavailable");
+                return response;
+            }
 
             var (jwtToken, expires) = await _jwtFactory.CreateTokenAsync(refreshToken.UserId, refreshToken.User.Email);
 
@@ -53,19 +55,24 @@ namespace Backend.Business_Logic_Layer
             response.Errors = new List<string>();
             var user = await _signInManager.UserManager.FindByNameAsync(request.Username);
 
-            if (user == null) 
+            if (user == null) {
                 response.Errors.Add("User is not found");
-
+                return response;
+            }
+            
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, false, false);
 
-            if (!result.Succeeded)
+            if ( result == null || !result.Succeeded){
                 response.Errors.Add("User is not found");
-
+                return response;
+            }
+           
             var (jwtToken, expires) = await _jwtFactory.CreateTokenAsync(user.Id, user.Email);
 
             var refreshToken = _jwtFactory.CreateRefreshToken(_ipAddress);
 
             refreshToken.UserId = user.Id;
+          
 
             _dbContext.RefreshTokens.Add(refreshToken);
             await _dbContext.SaveChangesAsync();

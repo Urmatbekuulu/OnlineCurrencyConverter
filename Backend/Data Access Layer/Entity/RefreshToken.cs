@@ -13,7 +13,7 @@
         public DateTime? Revoked { get; set; }
 
         public string CreatedByIp { get; set; }
-        public string RevokedByIp { get; set; }
+        public string? RevokedByIp { get; set; }
 
         public bool IsExpired => ExpireDateTime <= DateTime.UtcNow;
 

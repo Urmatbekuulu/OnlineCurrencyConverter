@@ -1,5 +1,8 @@
 using Backend.Business_Logic_Layer;
 using Backend.Data_Access_Layer;
+using Microsoft.AspNetCore.Identity;
+using System.Data;
+using System.Reflection.Metadata;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,5 +32,27 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+// Seed data
+// username : admin@test.com
+// password : admin@test.com
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
 
+    await using var context = services.GetRequiredService<ApplicationDbContext>();
+    context.Database.EnsureDeleted();
+    context.Database.EnsureCreated();
+    using var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+    if (await userManager.FindByNameAsync("admin@test.com") == null)
+    {
+        var adminUser = new ApplicationUser()
+        {
+            UserName = "admin@test.com",
+            Email = "admin@test.com"
+        };
+        await userManager.CreateAsync(adminUser, "admin@test.com");
+    }
+
+
+}
 app.Run();
