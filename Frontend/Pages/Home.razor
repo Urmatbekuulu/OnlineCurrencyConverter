@@ -1,7 +1,46 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+
+@layout MainLayout
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<AuthorizeView>
+    <Authorized>
+        
+    </Authorized>
+    <NotAuthorized>
+        @if (Currencies != null)
+{
+    <div class="row">
+        <table class="table col-lg-3 table-bordered table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>Currency</th>
+                    <th>Buy</th>
+                    <th>Sell</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = Currencies.Count - 1; i > -1; i--)
+                {
+                    var item = Currencies[i];
+                    <tr>
+@*                         <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.CreatedDate</td>
+                        <td>Архивирован</td>
+                        <td class="text-right" >
+                            <a class="btn btn-primary btn-sm" href="archive/stream/regs/view/@item.Name/@item.Id" role="button">Посмотреть</a>
+                            <button class="btn btn-danger btn-sm" @onclick="@(e => UnArchive(item.Id))" role="button">Разархивировать</button>
+                        </td> *@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+    </NotAuthorized>
+</AuthorizeView>
 
-Welcome to your new app.
+
