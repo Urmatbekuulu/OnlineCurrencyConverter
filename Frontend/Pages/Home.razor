@@ -3,43 +3,105 @@
 
 @layout MainLayout
 
+@inject CustomAuthenticationStateProvider AuthProvider;
+
 <PageTitle>Home</PageTitle>
 
 <AuthorizeView>
     <Authorized>
-        
+
+        <EditForm Context="another" Model="newItem" OnValidSubmit="AddItem">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <InputText @bind-Value="newItem.CurrencyCode" placeholder="Currency code" />
+            <InputText @bind-Value="newItem.CurrencyName" placeholder="Currency name" />
+            <InputNumber @bind-Value="newItem.BuyRateToBaseCurrency" @bind-Value:format="F2" placeholder="buy rate" />
+            <InputNumber @bind-Value="newItem.SellRateToBaseCurrency" @bind-Value:format="F2" placeholder="sell rate" />
+            <InputDate @bind-Value="newItem.ActualDate" Type="InputDateType.Date" />
+            <button type="submit">Add Item</button>
+        </EditForm>
+        @if (editItem != null)
+        {
+            <EditForm Context="another" Model="editItem" OnValidSubmit="UpdateItem">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <table>
+                    <tr>
+                        <td>@editItem.CurrencyCode</td>
+                        <InputText @bind-Value="editItem.CurrencyName" placeholder="Currency name" />
+                        <InputNumber @bind-Value="editItem.BuyRateToBaseCurrency" @bind-Value:format="F2" placeholder="buy rate" />
+                        <InputNumber @bind-Value="editItem.SellRateToBaseCurrency" @bind-Value:format="F2" placeholder="sell rate" />
+                        <td>@editItem.ActualDate</td>
+                        <button type="submit">Update Item</button>
+                        <button type="button" @onclick="() => editItem = null">Cancel</button>
+                    </tr>
+                </table>
+            </EditForm>
+        }
+        @if (Currencies != null)
+        {
+
+            <div class="row">
+
+
+                <table class="table col-lg-3 table-bordered table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>Currency</th>
+                            <th>Name</th>
+                            <th>Buy</th>
+                            <th>Sell</th>
+                            <th>Actual Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = Currencies.Count - 1; i > -1; i--)
+                        {
+                            var item = Currencies[i];
+                            <tr>
+                                <td>@item.CurrencyCode</td>
+                                <td>@item.CurrencyName</td>
+                                <td>@item.BuyRateToBaseCurrency</td>
+                                <td>@item.SellRateToBaseCurrency</td>
+                                <td>@item.ActualDate</td>
+                                <td class="text-right">
+                                    <button @onclick="() => StartEdit(item)">Edit</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
     </Authorized>
     <NotAuthorized>
         @if (Currencies != null)
-{
-    <div class="row">
-        <table class="table col-lg-3 table-bordered table-striped table-sm">
-            <thead>
-                <tr>
-                    <th>Currency</th>
-                    <th>Buy</th>
-                    <th>Sell</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (var i = Currencies.Count - 1; i > -1; i--)
-                {
-                    var item = Currencies[i];
-                    <tr>
-@*                         <td>@item.Id</td>
-                        <td>@item.Name</td>
-                        <td>@item.CreatedDate</td>
-                        <td>Архивирован</td>
-                        <td class="text-right" >
-                            <a class="btn btn-primary btn-sm" href="archive/stream/regs/view/@item.Name/@item.Id" role="button">Посмотреть</a>
-                            <button class="btn btn-danger btn-sm" @onclick="@(e => UnArchive(item.Id))" role="button">Разархивировать</button>
-                        </td> *@
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-}
+        {
+            <div class="row">
+                <table class="table col-lg-3 table-bordered table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>Currency</th>
+                            <th>Buy</th>
+                            <th>Sell</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = Currencies.Count - 1; i > -1; i--)
+                        {
+                            var item = Currencies[i];
+                            <tr>
+                                <td>@item.CurrencyCode</td>
+                                <td>@item.BuyRateToBaseCurrency</td>
+                                <td>@item.SellRateToBaseCurrency</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
     </NotAuthorized>
 </AuthorizeView>
 

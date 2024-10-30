@@ -26,8 +26,16 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+//this is specially for test environment
+app.UseCors(options =>
+{
+    options
+        .AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .WithExposedHeaders("*");
+});
 app.UseRouting();
-app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 
